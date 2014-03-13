@@ -26,11 +26,59 @@ class GitAutoDeploy(BaseHTTPRequestHandler):
 
             for repository in myClass.config['repositories']:
                 if(not os.path.isdir(repository['path'])):
+                    myClass.createWebDirectory(repository['path'])
+
                     sys.exit('Directory ' + repository['path'] + ' not found')
                 if(not os.path.isdir(repository['path'] + '/.git')):
+                    myClass.createGitRepo(repository['path'], repository['url'])
+
                     sys.exit('Directory ' + repository['path'] + ' is not a Git repository')
 
         return myClass.config
+
+    # PC - Log Time for this tomorrow - 45 minutes
+    @classmethod
+    def pushToPagodaBox(myClass, path, url):
+        print "Creating Git Repo"
+        vhost_name = ""
+        call(['cd "' + path + '" && git clone ' + url], shell=True)
+        call(['a2ensite ' + vhost_name], shell=True)
+
+    @classmethod
+    def addPagodaBoxRemote(myClass, path, url):
+        print "Creating Git Repo"
+        vhost_name = ""
+        call(['cd "' + path + '" && git clone ' + url], shell=True)
+        call(['a2ensite ' + vhost_name], shell=True)
+
+
+    @classmethod
+    def createVHostFile(myClass, path, url):
+        print "Creating Git Repo"
+        vhost_name = ""
+        call(['cd "' + path + '" && git clone ' + url], shell=True)
+        call(['a2ensite ' + vhost_name], shell=True)
+
+    @classmethod
+    def reloadApacheSettings(myClass, path, url):
+        print "Creating Git Repo"
+        call(['service apache2 reload'], shell=True)
+
+    @classmethod
+    def createGitRepo(myClass, path, url):
+        print "Creating Git Repo"
+        call(['cd "' + path + '" && git clone ' + url], shell=True)
+
+    @classmethod
+    def createWebDirectory(myClass, path):
+        print "hey"
+        call(['mkdir "' + path + '"'], shell=True)
+
+
+        # if(not os.path.isdir(repository['path'])):
+        #     sys.exit('Directory ' + repository['path'] + ' not found')
+        # if(not os.path.isdir(repository['path'] + '/.git')):
+        #     sys.exit('Directory ' + repository['path'] + ' is not a Git repository')
 
     def do_POST(self):
         urls = self.parseRequest()

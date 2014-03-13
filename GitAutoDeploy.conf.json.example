@@ -2,8 +2,8 @@
 	"port": 8001, 
 	"repositories": 
 	[{
-		"url": "https://github.com/logsol/Test-Repo", 
-		"path": "/home/logsol/projects/Test-Repo",
+		"url": "https://github.com/CodeForAsheville/Visual-Town-Budget", 
+		"path": "/var/www/vhosts/CodeForAsheville/Visual-Town-Budget",
 		"deploy": "echo deploying"
 	}, 
 	{
